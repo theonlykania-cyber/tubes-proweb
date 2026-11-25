@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buat Akun - DanusuProject</title>
   
-  <!-- Import Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* Reset & Variabel Warna */
     :root {
       --bg-page: #FFFFFF;
       --bg-card: #FFF8C2;
@@ -39,7 +37,6 @@
       justify-content: space-between;
     }
 
-    /* Area Utama Tengah */
     .main-container {
       flex: 1;
       display: flex;
@@ -48,7 +45,6 @@
       padding: 50px 20px;
     }
 
-    /* Kartu Form Buat Akun */
     .register-card {
       background-color: var(--bg-card);
       width: 100%;
@@ -58,7 +54,6 @@
       position: relative;
     }
 
-    /* Tombol Kembali (Panah Kiri) */
     .back-btn {
       position: absolute;
       top: 32px;
@@ -85,7 +80,6 @@
       fill: var(--bg-card);
     }
 
-    /* Header Judul */
     .register-header {
       text-align: center;
       margin-bottom: 30px;
@@ -109,7 +103,6 @@
       margin-top: 4px;
     }
 
-    /* Form Input */
     .register-form {
       max-width: 540px;
       margin: 0 auto;
@@ -147,8 +140,6 @@
     .form-group input:focus {
       box-shadow: 0 0 0 2px var(--green-primary);
     }
-
-    /* Area Upload Foto KTM/KTMs */
     .file-upload-box {
       display: flex;
       align-items: center;
@@ -174,7 +165,6 @@
       display: none;
     }
 
-    /* Checkbox Syarat & Ketentuan */
     .terms-group {
       display: flex;
       align-items: center;
@@ -198,7 +188,6 @@
       line-height: 1.3;
     }
 
-    /* Tombol Submit */
     .form-actions {
       text-align: center;
     }
@@ -224,7 +213,6 @@
       transform: scale(0.98);
     }
 
-    /* Bagian Footer */
     .footer {
       background-color: var(--bg-footer);
       border-top-left-radius: 42px;
@@ -274,8 +262,7 @@
       opacity: 0.8;
       text-decoration: underline;
     }
-
-    /* Responsif untuk Layar HP / Tablet */
+    
     @media (max-width: 768px) {
       .register-card {
         padding: 70px 28px 40px;
@@ -313,24 +300,20 @@
 </head>
 <body>
 
-  <!-- Konten Utama -->
   <main class="main-container">
     <div class="register-card">
       
-      <!-- Tombol Kembali (bisa diarahkan ke index.html / halaman login) -->
       <a href="index.html" class="back-btn" aria-label="Kembali">
         <svg viewBox="0 0 24 24">
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
       </a>
 
-      <!-- Judul -->
       <div class="register-header">
         <h1>Buat Akun</h1>
         <p>DanusuProject</p>
       </div>
-
-      <!-- Form Pendaftaran -->
+      
       <form class="register-form" action="#" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nama">Nama Lengkap</label>
@@ -398,7 +381,6 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
       <h2 class="footer-brand">DanusuProject</h2>
@@ -425,7 +407,6 @@
     </div>
   </footer>
 
-  <!-- Script ringan untuk menampilkan nama file saat KTM dipilih -->
   <script>
     function updateFileName(input) {
       const fileNameDisplay = document.getElementById('file-name');
