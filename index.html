@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
     <title>Danusu Project</title>
 
+    <!-- ================= CSS ================= -->
     <style>
         * {
             margin: 0;
@@ -24,6 +25,7 @@
             text-decoration: none;
             color: inherit;
         }
+        /* ================= NAVBAR ================= */
 
         .navbar {
             width: 96%;
@@ -83,6 +85,7 @@
         }
 
 
+        /* ================= HERO SECTION ================= */
         .hero {
             background-color: #fbf2c3da;
             min-height: 470px;
@@ -152,6 +155,7 @@
             max-width: 350px;
         }
 
+        /* Lengkungan bagian bawah hero */
         .hero::after {
             content: "   ";
             position: absolute ;
@@ -170,6 +174,8 @@
             background-size: 74px 40px;
         }
 
+
+        /* ================= PRODUCT SECTION ================= */
         .products {
             padding: 15px 3% 30px;
         }
@@ -188,6 +194,8 @@
         }
 
 
+        /* ================= PRODUCT CARD ================= */
+
         .product-card {
             border: 1.5px solid #467A65;
             border-radius: 24px;
@@ -202,6 +210,7 @@
             background-color: white;
         }
 
+        /* Gambar produk */
         .product-image {
             width: 100%;
             height: 135px;
@@ -328,6 +337,8 @@
             font-size: 16px;
         }
 
+
+        /* ================= tampilan agar bisa responsif ================= */
         @media (max-width: 768px) {
             .navbar {
                 padding: 10px;
@@ -496,6 +507,7 @@
 </head>
 <body>
 
+    <!-- ================= NAVBAR ================= -->
     <header class="navbar">
         <a href="#" class="logo">
             Danusu Project
@@ -513,6 +525,7 @@
     </header>
 
 
+    <!-- ================= HERO SECTION ================= -->
     <main>
         <section class="hero">
             <div class="hero-content">
@@ -538,19 +551,23 @@
                 </div>
             </div>
 
+            <!-- Ilustrasi keranjang belanja -->
             <div class="hero-image">
             <img src = "Usell.png" class = "basket"  alt = "Ilustrasi keranjang belanja">
             </div>
         </section>
 
+    <!-- ================= PRODUCT SECTION ================= -->
         <section class="products" id="products">
             <h2>Untuk Anda</h2>
             <div class="product-container" id="productContainer">
 
+                <!-- Product Card dibuat otomatis oleh JavaScript -->
             </div>
         </section>
     </main>
 
+    <!-- ================= FOOTER ================= -->
     <footer class="footer" id="about">
         <h2>DanusuProject</h2>
         <div class="footer-content">
@@ -562,6 +579,7 @@
         </div>
     </footer>
 
+    <!-- ================= JAVASCRIPT ================= -->
     <script>
         <!--Data Produk--> 
         const products = [
@@ -673,6 +691,7 @@
             productContainer.appendChild(card);
 
         });
+        // Tombol hubungi penjual
         function contactSeller(event) {
             event.preventDefault();
             alert("Informasi kontak penjual belum tersedia.");
