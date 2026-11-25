@@ -6,7 +6,6 @@
     <title>Lihat Akun - DanusuProject</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -37,9 +36,6 @@
             max-width: 900px;
         }
 
-        /* =========================================
-           NAVBAR
-           ========================================= */
         .navbar {
             background-color: #FFFFFF !important;
             padding: 14px 24px;
@@ -90,9 +86,6 @@
             transform: translateY(-1px);
         }
 
-        /* =========================================
-           SECTION PROFIL PENJUAL (LIHAT AKUN)
-           ========================================= */
         section.bg-warning-subtle {
             background-color: var(--bg-cream) !important;
             border-bottom-left-radius: 36px;
@@ -123,7 +116,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* Bingkai Foto Profil Penjual (Terkunci 1:1 Bulat Sempurna) */
         .img-thumbnail.circle {
             width: 120px !important;
             height: 120px !important;
@@ -135,8 +127,7 @@
             object-fit: cover;
             display: block;
         }
-
-        /* Rekayasa Tampilan <figure> & <blockquote> */
+        
         figure .blockquote {
             margin-bottom: 4px;
         }
@@ -168,9 +159,6 @@
             margin-top: 2px;
         }
 
-        /* =========================================
-           MAIN CONTENT: PRODUK YANG DITAWARKAN
-           ========================================= */
         main {
             flex: 1;
             padding: 36px 16px 60px 16px !important;
@@ -183,7 +171,6 @@
             margin-bottom: 24px;
         }
 
-        /* Kartu Produk */
         .card {
             border: 1.5px solid var(--border-card);
             border-radius: 16px;
@@ -233,7 +220,6 @@
             margin-bottom: 32px;
         }
 
-        /* Tombol Hubungi Penjual */
         .card .btn-primary {
             background-color: var(--green-dark);
             border-color: var(--green-dark);
@@ -254,9 +240,6 @@
             transform: scale(1.03);
         }
 
-        /* =========================================
-           FOOTER
-           ========================================= */
         footer {
             background-color: var(--green-footer);
             border-top-left-radius: 36px;
@@ -358,7 +341,6 @@
     <h2>Produk yang Ditawarkan</h2>
 
     <div class="row g-4">
-      <!-- Card Produk 1 -->
       <div class="col-12 col-md-6">
         <div class="card h-100" data-href="">
           <img src="" class="card-img-top" alt="Foto Produk 1">
@@ -369,8 +351,7 @@
           </div>
         </div>
       </div>
-
-      <!-- Card Produk 2 -->
+        
       <div class="col-12 col-md-6">
         <div class="card h-100" data-href="">
           <img src="" class="card-img-top" alt="Foto Produk 2">
@@ -382,7 +363,6 @@
         </div>
       </div>
 
-      <!-- Card Produk 3 -->
       <div class="col-12 col-md-6">
         <div class="card h-100" data-href="">
           <img src="" class="card-img-top" alt="Foto Produk 3">
@@ -394,7 +374,6 @@
         </div>
       </div>
 
-      <!-- Card Produk 4 -->
       <div class="col-12 col-md-6">
         <div class="card h-100" data-href="">
           <img src="" class="card-img-top" alt="Foto Produk 4">
@@ -440,7 +419,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
 
-<!-- JavaScript Interaktif untuk seluruh <a> dan .card yang masih kosong -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('a').forEach(link => {
