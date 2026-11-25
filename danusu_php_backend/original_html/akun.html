@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buat Akun - DanusuProject</title>
+  
+  <!-- Import Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset & Variabel Warna */
+    :root {
+      --bg-page: #FFFFFF;
+      --bg-card: #FFF8C2;
+      --bg-footer: #7FA38D;
+      --green-primary: #4A7259;
+      --green-hover: #3B5C47;
+      --text-dark: #2B332E;
+      --text-cream: #FFF8C2;
+      --white: #FFFFFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Area Utama Tengah */
+    .main-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+    }
+
+    /* Kartu Form Buat Akun */
+    .register-card {
+      background-color: var(--bg-card);
+      width: 100%;
+      max-width: 760px;
+      border-radius: 36px;
+      padding: 45px 60px 55px;
+      position: relative;
+    }
+
+    /* Tombol Kembali (Panah Kiri) */
+    .back-btn {
+      position: absolute;
+      top: 32px;
+      left: 32px;
+      width: 46px;
+      height: 46px;
+      background-color: var(--green-primary);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background-color: var(--green-hover);
+      transform: scale(1.05);
+    }
+
+    .back-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--bg-card);
+    }
+
+    /* Header Judul */
+    .register-header {
+      text-align: center;
+      margin-bottom: 30px;
+      margin-top: 10px;
+    }
+
+    .register-header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 3.3rem;
+      font-weight: 800;
+      color: var(--green-primary);
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .register-header p {
+      font-family: 'Fraunces', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--green-primary);
+      margin-top: 4px;
+    }
+
+    /* Form Input */
+    .register-form {
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="tel"] {
+      width: 100%;
+      height: 44px;
+      background-color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 0 16px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus {
+      box-shadow: 0 0 0 2px var(--green-primary);
+    }
+
+    /* Area Upload Foto KTM/KTMs */
+    .file-upload-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 250px;
+      height: 85px;
+      background-color: var(--white);
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6c757d;
+      transition: box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .file-upload-box:hover {
+      box-shadow: 0 0 0 2px var(--green-primary);
+      background-color: #fcfcfc;
+    }
+
+    .file-upload-box input[type="file"] {
+      display: none;
+    }
+
+    /* Checkbox Syarat & Ketentuan */
+    .terms-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      margin-bottom: 28px;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+    }
+
+    .terms-group input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--green-primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .terms-group label {
+      cursor: pointer;
+      line-height: 1.3;
+    }
+
+    /* Tombol Submit */
+    .form-actions {
+      text-align: center;
+    }
+
+    .btn-submit {
+      background-color: var(--green-primary);
+      color: var(--text-cream);
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      padding: 11px 58px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--green-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    /* Bagian Footer */
+    .footer {
+      background-color: var(--bg-footer);
+      border-top-left-radius: 42px;
+      border-top-right-radius: 42px;
+      padding: 40px 60px 50px;
+      width: 100%;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      font-family: 'Fraunces', serif;
+      font-size: 2.35rem;
+      font-weight: 800;
+      color: var(--text-cream);
+      margin-bottom: 24px;
+    }
+
+    .footer-columns {
+      display: flex;
+      justify-content: space-between;
+      max-width: 900px;
+      padding-left: 45px;
+      gap: 20px;
+    }
+
+    .footer-col {
+      list-style: none;
+    }
+
+    .footer-col li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col a {
+      color: var(--text-cream);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 400;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    /* Responsif untuk Layar HP / Tablet */
+    @media (max-width: 768px) {
+      .register-card {
+        padding: 70px 28px 40px;
+        border-radius: 28px;
+      }
+
+      .back-btn {
+        top: 22px;
+        left: 22px;
+        width: 40px;
+        height: 40px;
+      }
+
+      .register-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .file-upload-box {
+        width: 100%;
+      }
+
+      .footer {
+        padding: 35px 30px 40px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+      }
+
+      .footer-columns {
+        flex-direction: column;
+        padding-left: 0;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Konten Utama -->
+  <main class="main-container">
+    <div class="register-card">
+      
+      <!-- Tombol Kembali (bisa diarahkan ke index.html / halaman login) -->
+      <a href="index.html" class="back-btn" aria-label="Kembali">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+      </a>
+
+      <!-- Judul -->
+      <div class="register-header">
+        <h1>Buat Akun</h1>
+        <p>DanusuProject</p>
+      </div>
+
+      <!-- Form Pendaftaran -->
+      <form class="register-form" action="#" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" name="nama" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+          <label for="konfirmasi_password">Konfirmasi Password</label>
+          <input type="password" id="konfirmasi_password" name="konfirmasi_password" required>
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">Nomor WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" required>
+        </div>
+
+        <div class="form-group">
+          <label for="nim">Nomor Induk Mahasiswa</label>
+          <input type="text" id="nim" name="nim" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fakultas">Fakultas</label>
+          <input type="text" id="fakultas" name="fakultas" required>
+        </div>
+
+        <div class="form-group">
+          <label for="prodi">Program Studi</label>
+          <input type="text" id="prodi" name="prodi" required>
+        </div>
+
+        <div class="form-group">
+          <label for="ktm">Upload foto KTM/KTMs</label>
+          <label class="file-upload-box" for="ktm" id="file-label">
+            <span id="file-name"></span>
+            <input type="file" id="ktm" name="ktm" accept="image/*" required onchange="updateFileName(this)">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="alamat">Alamat Domisili</label>
+          <input type="text" id="alamat" name="alamat" required>
+        </div>
+
+        <div class="terms-group">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">Saya menyetujui Syarat dan Ketentuan serta Kebijakan Privasi yang berlaku</label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Buat Akun</button>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <h2 class="footer-brand">DanusuProject</h2>
+      
+      <div class="footer-columns">
+        <ul class="footer-col">
+          <li><a href="#">Isi Footer</a></li>
+          <li><a href="#">Isi Footer</a></li>
+          <li><a href="#">Isi Footer</a></li>
+        </ul>
+        
+        <ul class="footer-col">
+          <li><a href="#">Isi Footer</a></li>
+          <li><a href="#">Isi Footer</a></li>
+          <li><a href="#">Isi Footer</a></li>
+        </ul>
+        
+        <ul class="footer-col">
+          <li><a href="#">Isi Footer</a></li>
+          <li><a href="#">Isi Footer</a></li>
+          <li><a href="#">Isi Footer</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script ringan untuk menampilkan nama file saat KTM dipilih -->
+  <script>
+    function updateFileName(input) {
+      const fileNameDisplay = document.getElementById('file-name');
+      if (input.files && input.files.length > 0) {
+        fileNameDisplay.textContent = input.files[0].name;
+      } else {
+        fileNameDisplay.textContent = '';
+      }
+    }
+  </script>
+
+</body>
+</html>

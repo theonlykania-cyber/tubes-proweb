@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS produk (
+id INT(11) NOT NULL AUTO_INCREMENT,user_id INT(11) NOT NULL,nama_produk VARCHAR(150) NOT NULL,
+deskripsi_produk TEXT NOT NULL,gambar_produk VARCHAR(255) DEFAULT NULL,
+status_produk ENUM('ready_stock','pre_order','sold_out') NOT NULL DEFAULT 'ready_stock',
+whatsapp VARCHAR(20) DEFAULT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY(id),INDEX idx_produk_user(user_id),
+CONSTRAINT fk_produk_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
