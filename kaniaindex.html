@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yEPZ7jP9S0QKiUQ0m3jjsO4ProIW7wvR9gXkI7JOGa2XVsw53Yke2bsdkBbjmmiX" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
+    <title>Danusu Project</title>
+
+    <!-- ================= CSS ================= -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #467A65;
+            background-color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            width: 96%;
+            margin: 12px auto;
+            padding: 10px 20px;
+
+            background-color: white;
+            border-radius: 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            font-weight: bold;
+            color: #a2e6ca;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-menu a {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .search-icon {
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #467A65;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-button {
+            background-color: #7ff0c3;
+            color: white !important;
+            padding: 7px 14px;
+            border-radius: 25px;
+        }
+
+
+        /* ================= HERO SECTION ================= */
+        .hero {
+            background-color: #fbf2c3da;
+            min-height: 470px;
+
+            padding: 80px 5%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            width: 58%;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(30px, 5vw, 52px);
+            line-height: 1.08;
+            font-weight: 800;
+            margin-bottom: 22px;
+            color: #467A65;
+        }
+
+        .hero-content p {
+            font-size: 17px;
+            line-height: 1.3;
+            max-width: 520px;
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-outline {
+            border: 1.5px solid #467A65;
+            background-color: #F4EBC5;
+        }
+
+        .btn-primary {
+            background-color: #467A65;
+            color: white;
+        }
+
+        .hero-image {
+            width: 38%;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+        }
+
+        .basket {
+            width: 200%;
+            max-width: 350px;
+        }
+
+        /* Lengkungan bagian bawah hero */
+        .hero::after {
+            content: "   ";
+            position: absolute ;
+            width: 100%;
+            height: 20px;
+            bottom: -1px;
+            left: 0;
+
+            background:
+                radial-gradient(
+                    circle at 37px 0,
+                    white 37px,
+                    transparent 38px
+                ) repeat-x;
+
+            background-size: 74px 40px;
+        }
+
+
+        /* ================= PRODUCT SECTION ================= */
+        .products {
+            padding: 15px 3% 30px;
+        }
+
+        .products h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #24563F;
+            margin-bottom: 15px;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px 35px;
+        }
+
+
+        /* ================= PRODUCT CARD ================= */
+
+        .product-card {
+            border: 1.5px solid #467A65;
+            border-radius: 24px;
+            padding: 5px 5px 10px;
+
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+
+            min-width: 0;
+            background-color: white;
+        }
+
+        /* Gambar produk */
+        .product-image {
+            width: 100%;
+            height: 135px;
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+
+            background: linear-gradient(
+                to bottom,
+                #BCE7F9,
+                #F0FAFF 75%
+            );
+        }
+
+        .product-info {
+            padding: 5px 7px 0;
+
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .product-title h3 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .status {
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .sold-out {
+            color: rgb(204, 204, 204);
+        }
+
+        .pre-order {
+            color: rgb(0, 41, 188);
+        }
+
+        .ready {
+            color: #009545;
+        }
+
+        .product-description {
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+
+        .seller {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 15px;
+        }
+
+        .seller-icon {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #087A4B;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #087A4B;
+            font-size: 20px;
+        }
+
+        .seller-name {
+            font-size: 12px;
+        }
+
+        .seller-faculty {
+            font-size: 8px;
+            color: gray;
+        }
+
+        .contact-button {
+            background-color: #467A65;
+            color: white;
+
+            width: fit-content;
+            padding: 5px 8px;
+            border-radius: 7px;
+
+            font-size: 15px;
+            margin-top: auto;
+        }
+
+
+        /* ================= FOOTER ================= */
+        .footer {
+            background-color: #80AA98;
+            color: #FFF2B2;
+
+            padding: 25px 4% 70px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .footer h2 {
+            font-family: Georgia, serif;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding-left: 40px;
+            gap: 20px;
+        }
+
+        .footer-content p {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+
+        /* ================= tampilan agar bisa responsif ================= */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 25px;
+            }
+
+            .nav-menu {
+                gap: 9px;
+            }
+
+            .nav-menu a {
+                font-size: 11px;
+            }
+
+            .profile-icon {
+                width: 25px;
+                height: 25px;
+            }
+
+            .hero {
+                min-height: 380px;
+                padding: 60px 4%;
+            }
+
+            .hero-content {
+                width: 60%;
+            }
+
+            .hero-content h1 {
+                font-size: 30px;
+            }
+
+            .hero-content p {
+                font-size: 13px;
+            }
+
+            .hero-image {
+                width: 38%;
+            }
+
+            .product-container {
+                gap: 15px;
+            }
+
+            .product-title h3 {
+                font-size: 15px;
+            }
+
+            .product-description {
+                font-size: 13px;
+            }
+
+            .product-image {
+                height: 110px;
+            }
+
+            .contact-button {
+                font-size: 12px;
+            }
+        }
+
+        /* Tampilan HP */
+        @media (max-width: 480px) {
+            .navbar {
+                width: 98%;
+                padding: 8px;
+            }
+
+            .logo {
+                font-size: 15px;
+            }
+
+            .nav-menu {
+                gap: 6px;
+            }
+
+            .nav-menu a {
+                font-size: 9px;
+            }
+
+            .hero {
+                min-height: 350px;
+                padding: 45px 4%;
+            }
+
+            .hero-content {
+                width: 65%;
+            }
+
+            .hero-content h1 {
+                font-size: 25px;
+            }
+
+            .hero-content p {
+                font-size: 11px;
+            }
+
+            .hero-buttons {
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 8px 10px;
+                font-size: 10px;
+            }
+
+            .products {
+                padding: 15px 3%;
+            }
+
+            .products h2 {
+                font-size: 24px;
+            }
+
+            .product-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .product-image {
+                height: 100px;
+            }
+
+            .product-title h3 {
+                font-size: 13px;
+            }
+
+            .status {
+                font-size: 9px;
+            }
+
+            .product-description {
+                font-size: 11px;
+            }
+
+            .seller-name {
+                font-size: 10px;
+            }
+
+            .seller-icon {
+                width: 25px;
+                height: 25px;
+            }
+
+            .contact-button {
+                font-size: 10px;
+            }
+
+            .footer h2 {
+                font-size: 27px;
+            }
+
+            .footer-content {
+                padding-left: 10px;
+                gap: 10px;
+            }
+            .footer-content p {
+                font-size: 11px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="navbar">
+        <a href="#" class="logo">
+            Danusu Project
+        </a>
+        <nav class="nav-menu">
+        </nav>
+            <a href="#about">ABOUT US</a>
+            <a href="#home">HOME</a>
+            <a href="#products" class="profile-icon"
+               aria-label="Profil">  &#9786;
+            </a>
+            <a href="#login" class="login-button"> LOGIN
+            </a>
+        </nav>
+    </header>
+
+
+    <!-- ================= HERO SECTION ================= -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <font face="Arial, sans-serif" color="#467A65">
+                <h1>
+                    Jual Beli Produk & Jasa
+                    Buatan Anak USU!
+                </h1>
+
+                <p>
+                    Wadah jual beli produk dan jasa mahasiswa USU: 
+                    telusuri katalognya, pesan langsung ke penjual,
+                    atau daftarkan usahamu sendiri.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-outline">
+                        Jelajahi
+                    </a>
+                    <a href="#login" class="btn btn-primary">
+                        Mulai Berjualan
+                    </a>
+                </div>
+            </div>
+
+            <!-- Ilustrasi keranjang belanja -->
+            <div class="hero-image">
+            <img src = "Usell.png" class = "basket"  alt = "Ilustrasi keranjang belanja">
+            </div>
+        </section>
+
+    <!-- ================= PRODUCT SECTION ================= -->
+        <section class="products" id="products">
+            <h2>Untuk Anda</h2>
+            <div class="product-container" id="productContainer">
+
+                <!-- Product Card dibuat otomatis oleh JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer" id="about">
+        <h2>DanusuProject</h2>
+        <div class="footer-content">
+            <div>
+                <p>UNIVERSITAS SUMATERA UTARA</p>
+                <p>Jl. Dr. T. Mansur No. 9, Medan, Sumatera Utara</p>
+                <p>copyright © 2026 DanusuProject. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+        <!--Data Produk--> 
+        const products = [
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Sold Out",
+                statusClass: "sold-out"
+            },
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Pre-Order",
+                statusClass: "pre-order"
+            },
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Ready",
+                statusClass: "ready"
+            },
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Sold Out",
+                statusClass: "sold-out"
+            },
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Pre-Order",
+                statusClass: "pre-order"
+            },
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Ready",
+                statusClass: "ready"
+            },
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Pre-Order",
+                statusClass: "pre-order"
+            },
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "sold out",
+                statusClass: "sold-out"
+            },
+
+            {
+                name: "Nama Produk",
+                description: "Deskripsi Produk",
+                status: "Ready",
+                statusClass: "Ready"
+            }
+        ]; 
+
+        <!--Mengambil container produk-->
+        const productContainer =
+            document.getElementById("productContainer");
+
+        <!-- Menampilkan seluruh produk -->
+        products.forEach((product, index) => {
+            const card = document.createElement("article");
+            card.className = "product-card";
+            card.innerHTML =`
+                <div class="product-image">
+                    <div class="cloud"></div>
+                    <div class="cloud cloud-two"></div>
+
+                    <div class="hill"></div>
+                    <div class="hill hill-two"></div>
+                </div>
+
+                <div class="product-info">
+                    <div class="product-title">
+                        <h3>${product.name}</h3>
+                        <span class="status ${product.statusClass}">
+                            ${product.status}
+                        </span>
+                    </div>
+
+                    <p class="product-description">
+                        ${product.description}
+                    </p>
+
+                    <div class="seller">
+
+                        <div class="seller-icon" title="Profil Penjual">
+                            &#9786;
+                        </div>
+                        <div>
+                            <div class="seller-name">
+                                Nama Penjual
+                            </div>
+                            <div class="seller-faculty">
+                                Fakultas - Prodi
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="contact-button"
+                       onclick="contactSeller(event)">  Hubungi Penjual
+                    </a>
+                </div>
+            `;
+            productContainer.appendChild(card);
+
+        });
+        // Tombol hubungi penjual
+        function contactSeller(event) {
+            event.preventDefault();
+            alert("Informasi kontak penjual belum tersedia.");
+        }
+    </script>
+</body>
+</html>
