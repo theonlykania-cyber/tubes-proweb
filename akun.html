@@ -296,9 +296,55 @@
         gap: 16px;
       }
     }
+
+    .footer {
+      background-color: #7FA38E;
+      color: #FFFFFF;
+      padding: 32px max(16px, calc((100% - 900px) / 2)) 40px;
+      border-radius: 36px 36px 0 0;
+    }
+
+    .footer h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      margin-bottom: 16px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding-left: 24px;
+    }
+
+    .footer-content p {
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      color: #FFF6C3;
+    }
+
+    @media (max-width: 768px) {
+      .footer h2 { font-size: 1.5rem; }
+      .footer-content { padding-left: 0; }
+      .footer-content p { font-size: 0.72rem; }
+    }
   </style>
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer></script>
 </head>
 <body>
+
+<header class="site-navbar">
+  <a href="index.html" class="site-brand">DanusuProject</a>
+  <nav class="site-nav" aria-label="Navigasi utama"><a href="aboutus.html">ABOUT US</a><a href="index.html">HOME</a></nav>
+  <form class="site-search" role="search" action="index.html" method="get">
+    <label class="visually-hidden" for="siteSearch">Cari produk atau toko</label>
+    <select name="type" aria-label="Kategori pencarian"><option value="all">Semua</option><option value="products">Produk</option><option value="stores">Toko/Akun</option></select>
+    <input id="siteSearch" type="search" name="q" placeholder="Cari produk atau toko..." autocomplete="off">
+    <button type="submit" aria-label="Cari"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  </form>
+  <a href="profilesaya.html" class="site-profile" aria-label="Akun Anda"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></svg></a>
+  <a href="login.html" class="site-login">LOGIN</a>
+</header>
 
   <main class="main-container">
     <div class="register-card">
@@ -381,28 +427,13 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <h2 class="footer-brand">DanusuProject</h2>
-      
-      <div class="footer-columns">
-        <ul class="footer-col">
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-        </ul>
-        
-        <ul class="footer-col">
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-        </ul>
-        
-        <ul class="footer-col">
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-        </ul>
+  <footer class="footer" id="about">
+    <h2>DanusuProject</h2>
+    <div class="footer-content">
+      <div>
+        <p>UNIVERSITAS SUMATERA UTARA</p>
+        <p>Jl. Dr. T. Mansur No. 9, Medan, Sumatera Utara</p>
+        <p>copyright © 2026 DanusuProject. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -418,5 +449,19 @@
     }
   </script>
 
+<script>
+  document.addEventListener('click', (event) => {
+    const backLink = event.target.closest('a[aria-label="Kembali"]');
+    if (!backLink) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = 'index.html';
+    }
+  }, true);
+</script>
 </body>
 </html>
