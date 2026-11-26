@@ -1,5 +1,11 @@
 <?php
-require_once __DIR__ . '/config/bootstrap.php';
+$bootstrap = __DIR__ . '/config/bootstrap.php';
+
+if (!file_exists($bootstrap)) {
+    die('File bootstrap tidak ditemukan: ' . $bootstrap);
+}
+
+require_once $bootstrap;
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') redirect('../akun.html');
 $required=['nama','email','password','konfirmasi_password','whatsapp','nim','fakultas','prodi','alamat'];
 foreach($required as $k) if(trim($_POST[$k] ?? '')==='') exit("Kolom $k wajib diisi.");
