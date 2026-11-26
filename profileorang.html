@@ -116,16 +116,11 @@
             letter-spacing: 0.3px;
         }
 
-        .img-thumbnail.circle {
+        .profile-avatar-icon {
             width: 120px !important;
             height: 120px !important;
-            aspect-ratio: 1 / 1;
-            border-radius: 50% !important;
-            border: 6px solid var(--green-dark);
-            padding: 0;
-            background-color: var(--placeholder-bg);
-            object-fit: cover;
             display: block;
+          color: var(--green-dark);
         }
         
         figure .blockquote {
@@ -218,6 +213,15 @@
             font-size: 0.95rem;
             color: var(--text-muted);
             margin-bottom: 32px;
+        }
+
+        .profile-empty-state {
+          grid-column: 1 / -1;
+          padding: 24px;
+          border: 1px dashed var(--border-card);
+          border-radius: 14px;
+          color: var(--text-muted);
+          text-align: center;
         }
 
         .card .btn-primary {
@@ -439,15 +443,19 @@
 
     <div class="row align-items-center g-3">
       <div class="col-auto">
-        <img src="" class="img-thumbnail circle" alt="Foto Profil Penjual">
+        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" class="bi bi-person-circle profile-avatar-icon" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+        </svg>
       </div>
       <div class="col">
         <figure class="mb-0">
           <blockquote class="blockquote">
-            <p>Nama Penjual</p>
+            <p id="publicProfileName">Memuat profil...</p>
           </blockquote>
           <figcaption class="blockquote-footer mb-0">
-            NIM Penjual <cite title="Fakultas - Prodi Penjual">Fakultas - Prodi Penjual</cite>
+            <span id="publicProfileNim">NIM</span> <cite id="publicProfileStudy" title="Fakultas - Program Studi">Fakultas - Program Studi</cite>
+            <span id="publicProfileRole" class="d-block mt-1"></span>
           </figcaption>
         </figure>
       </div>
@@ -459,51 +467,8 @@
   <div class="container">
     <h2>Produk yang Ditawarkan</h2>
 
-    <div class="row g-4">
-      <div class="col-12 col-md-6">
-        <div class="card h-100" data-href="produkorang.html" role="link" tabindex="0">
-          <img src="" class="card-img-top" alt="Foto Produk 1">
-          <div class="card-body">
-            <h5 class="card-title">Nama Produk <small class="text-primary fst-italic">Ready</small></h5>
-            <p class="card-text">Deskripsi Produk</p>
-            <a href="#" class="btn btn-primary">Hubungi Penjual</a>
-          </div>
-        </div>
-      </div>
-        
-      <div class="col-12 col-md-6">
-        <div class="card h-100" data-href="produkorang.html" role="link" tabindex="0">
-          <img src="" class="card-img-top" alt="Foto Produk 2">
-          <div class="card-body">
-            <h5 class="card-title">Nama Produk <small class="text-primary fst-italic">Ready</small></h5>
-            <p class="card-text">Deskripsi Produk</p>
-            <a href="#" class="btn btn-primary">Hubungi Penjual</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6">
-        <div class="card h-100" data-href="produkorang.html" role="link" tabindex="0">
-          <img src="" class="card-img-top" alt="Foto Produk 3">
-          <div class="card-body">
-            <h5 class="card-title">Nama Produk <small class="text-primary fst-italic">Ready</small></h5>
-            <p class="card-text">Deskripsi Produk</p>
-            <a href="#" class="btn btn-primary">Hubungi Penjual</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6">
-        <div class="card h-100" data-href="produkorang.html" role="link" tabindex="0">
-          <img src="" class="card-img-top" alt="Foto Produk 4">
-          <div class="card-body">
-            <h5 class="card-title">Nama Produk <small class="text-primary fst-italic">Ready</small></h5>
-            <p class="card-text">Deskripsi Produk</p>
-            <a href="#" class="btn btn-primary">Hubungi Penjual</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <p id="publicProfileStatus" class="profile-empty-state" aria-live="polite">Memuat data akun...</p>
+    <div class="row g-4" id="publicProductContainer"></div>
   </div>
 </main>
 
@@ -519,6 +484,60 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
+
+<script>
+(() => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const status = document.getElementById('publicProfileStatus');
+  const productContainer = document.getElementById('publicProductContainer');
+  const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[char]);
+  const labels = { ready_stock: 'Ready Stock', pre_order: 'Pre-Order', sold_out: 'Sold Out' };
+
+  if (!id || !/^[1-9]\d*$/.test(id)) {
+    status.textContent = 'Akun yang dicari tidak valid.';
+    return;
+  }
+
+  fetch(`danusu_php_backend/api-public-profile.php?id=${encodeURIComponent(id)}`, { headers: { Accept: 'application/json' } })
+    .then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Profil tidak dapat dimuat.');
+      return data;
+    })
+    .then(({ profile, products }) => {
+      document.title = `${profile.nama} - DanusuProject`;
+      document.getElementById('publicProfileName').textContent = profile.nama || 'Pengguna';
+      document.getElementById('publicProfileNim').textContent = `NIM ${profile.nim || '-'}`;
+      document.getElementById('publicProfileStudy').textContent = `${profile.fakultas || 'Fakultas belum diisi'}${profile.prodi ? ` - ${profile.prodi}` : ''}`;
+      document.getElementById('publicProfileRole').textContent = profile.role === 'penjual' ? 'Penjual' : 'Pembeli';
+      status.hidden = true;
+
+      if (!products.length) {
+        status.hidden = false;
+        status.textContent = 'Pengguna ini belum memiliki produk.';
+        return;
+      }
+
+      products.forEach((product) => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6';
+        const image = product.gambar_produk
+          ? `<img src="${esc(product.gambar_produk)}" class="card-img-top" alt="Foto ${esc(product.nama_produk)}">`
+          : '';
+        const phone = String(product.whatsapp || '').replace(/\D/g, '');
+        col.innerHTML = `<article class="card h-100">${image}<div class="card-body"><h3 class="card-title">${esc(product.nama_produk)} <small class="text-primary fst-italic">${esc(labels[product.status_produk] || product.status_produk)}</small></h3><p class="card-text">${esc(product.deskripsi_produk)}</p><a href="produkorang.html?id=${encodeURIComponent(product.id)}" class="btn btn-primary mb-2">Detail Produk</a>${phone ? `<a href="https://wa.me/${encodeURIComponent(phone)}" target="_blank" rel="noopener" class="btn btn-primary">Hubungi Penjual</a>` : ''}</div></article>`;
+        productContainer.appendChild(col);
+      });
+    })
+    .catch((error) => {
+      status.hidden = false;
+      status.textContent = error.message || 'Profil tidak dapat dimuat. Periksa koneksi server.';
+    });
+})();
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {

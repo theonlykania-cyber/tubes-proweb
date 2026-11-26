@@ -269,6 +269,26 @@
       transform: scale(0.98);
     }
 
+    .btn-delete {
+      margin-top: 16px;
+      background: #a63d40;
+      color: #fff;
+      font: 500 0.95rem 'Poppins', sans-serif;
+      border: 0;
+      border-radius: 50px;
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-delete:hover {
+      background: #842f32;
+    }
+
+    .btn-delete:active {
+      transform: scale(0.98);
+    }
+
     .footer {
       background-color: var(--bg-footer);
       border-top-left-radius: 42px;
@@ -473,6 +493,12 @@
         </div>
       </form>
 
+      <form class="product-delete-form form-actions" action="danusu_php_backend/actions/product-delete.php" method="POST" hidden>
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="csrf" value="">
+        <button type="submit" class="btn-delete">Hapus Produk</button>
+      </form>
+
     </div>
   </main>
 
@@ -511,6 +537,25 @@
       window.location.href = 'index.html';
     }
   }, true);
+</script>
+<script>
+(async () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) return;
+  const form = document.querySelector('.product-form');
+  form.action = 'danusu_php_backend/actions/product-update.php';
+  let idInput = form.querySelector('[name="id"]');
+  if (!idInput) { idInput = document.createElement('input'); idInput.type='hidden'; idInput.name='id'; form.appendChild(idInput); }
+  idInput.value = id;
+  const response = await fetch(`danusu_php_backend/api-product.php?id=${encodeURIComponent(id)}`, {credentials:'same-origin'});
+  if (!response.ok) return;
+  const {product} = await response.json();
+  form.elements.nama_produk.value = product.nama_produk || '';
+  form.elements.deskripsi_produk.value = product.deskripsi_produk || '';
+  form.elements.whatsapp.value = product.whatsapp || '';
+  const radio = form.querySelector(`[name="status_produk"][value="${product.status_produk}"]`); if (radio) radio.checked = true;
+})();
 </script>
 </body>
 </html>

@@ -576,7 +576,7 @@
                     <a href="#products" class="btn btn-outline">
                         Jelajahi
                     </a>
-                    <a href="login.html" class="btn btn-primary">
+                    <a href="login.html?next=tambahkan.html" class="btn btn-primary" data-requires-auth>
                         Mulai Berjualan
                     </a>
                 </div>
@@ -590,6 +590,8 @@
         <section class="products" id="products">
             <h2>Untuk Anda</h2>
             <p class="site-search-status" id="searchStatus" aria-live="polite" hidden></p>
+            <h3 id="accountResultsHeading" hidden>Akun Pengguna</h3>
+            <div class="product-container" id="accountResults" hidden></div>
             <div class="product-container" id="productContainer">
 
             </div>
@@ -608,128 +610,101 @@
     </footer>
 
     <script>
-        const products = [
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Sold Out",
-                statusClass: "sold-out",
-                isMine: true
-            },
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Pre-Order",
-                statusClass: "pre-order",
-                isMine: false
-            },
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Ready",
-                statusClass: "ready",
-                isMine: false
-            },
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Sold Out",
-                statusClass: "sold-out",
-                isMine: false
-            },
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Pre-Order",
-                statusClass: "pre-order",
-                isMine: false
-            },
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Ready",
-                statusClass: "ready",
-                isMine: false
-            },
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Pre-Order",
-                statusClass: "pre-order",
-                isMine: false
-            },
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "sold out",
-                statusClass: "sold-out",
-                isMine: false
-            },
+        const productContainer = document.getElementById("productContainer");
+        const accountResults = document.getElementById("accountResults");
+        const accountResultsHeading = document.getElementById("accountResultsHeading");
+        const searchStatus = document.getElementById("searchStatus");
 
-            {
-                name: "Nama Produk",
-                description: "Deskripsi Produk",
-                status: "Ready",
-                statusClass: "ready",
-                isMine: false
+        const statusLabels = {
+            ready_stock: "Ready Stock",
+            pre_order: "Pre-Order",
+            sold_out: "Sold Out"
+        };
+
+        const esc = (value) => String(value ?? "").replace(/[&<>'\"]/g,
+            (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[character])
+        );
+
+        async function loadProducts() {
+            const params = new URLSearchParams(window.location.search);
+            const query = params.get("q") || "";
+            const mode = params.get("type") || "all";
+            const searchForm = document.querySelector(".site-search");
+            if (searchForm) {
+                searchForm.querySelector('[name="q"]').value = query;
+                searchForm.querySelector('[name="type"]').value = mode;
             }
-        ]; 
+            productContainer.innerHTML = "";
+            accountResults.innerHTML = "";
+            accountResults.hidden = true;
+            accountResultsHeading.hidden = true;
+            productContainer.hidden = mode === "stores";
 
-        const productContainer =
-            document.getElementById("productContainer");
+            try {
+                if (mode !== "stores") {
+                    const endpoint = `danusu_php_backend/api-products.php${query ? `?q=${encodeURIComponent(query)}` : ""}`;
+                    const response = await fetch(endpoint, { credentials: "same-origin" });
+                    if (!response.ok) throw new Error("Produk tidak dapat dimuat.");
+                    const data = await response.json();
+                    const products = data.products || [];
 
-        products.forEach((product, index) => {
-            const card = document.createElement("article");
-            card.className = "card h-100 product-card";
-            card.setAttribute("role", "link");
-            card.setAttribute("tabindex", "0");
-            const sellerName = product.isMine ? "Nama Lengkap" : "Nama Penjual";
-            const sellerPage = product.isMine ? "profilesaya.html" : "profileorang.html";
-            const detailPage = product.isMine ? "produksaya.html" : "produkorang.html";
-            card.dataset.productSearch = `${product.name} ${product.description} ${product.status}`;
-            card.dataset.storeSearch = `${sellerName} Fakultas - Prodi`;
-            card.innerHTML =`
-                <div class="card-img-top product-image" role="img" aria-label="Foto ${product.name}"></div>
-                <div class="card-body product-info">
-                    <h3 class="card-title product-title">
-                        ${product.name}
-                        <small class="status ${product.statusClass}">${product.status}</small>
-                    </h3>
-                    <p class="card-text product-description">${product.description}</p>
-                    <a href="${sellerPage}" class="seller" aria-label="Lihat profil ${sellerName}">
-                        <span class="seller-icon" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>
-                        </span>
-                        <span>
-                            <span class="seller-name d-block">${sellerName}</span>
-                            <span class="seller-faculty d-block">Fakultas - Prodi</span>
-                        </span>
-                    </a>
-                    <a href="#" class="btn btn-primary contact-button" onclick="contactSeller(event)">Hubungi Penjual</a>
-                </div>
-            `;
-            card.setAttribute("aria-label", `Lihat detail ${product.name}`);
-            card.addEventListener("click", (event) => {
-                if (event.target.closest("a, button")) return;
-                window.location.href = detailPage;
-            });
-            card.addEventListener("keydown", (event) => {
-                if (event.target.closest("a, button")) return;
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    window.location.href = detailPage;
+                    if (!products.length) {
+                        productContainer.innerHTML = `<p class="col-12">${query ? "Tidak ada produk yang cocok dengan pencarian." : "Belum ada produk yang ditampilkan."}</p>`;
+                    }
+
+                    products.forEach((product) => {
+                        const card = document.createElement("article");
+                        card.className = "card h-100 product-card";
+                        const image = product.gambar_produk ? esc(product.gambar_produk) : "";
+                        const whatsapp = String(product.seller_whatsapp || "").replace(/\D/g, "");
+                        card.innerHTML = `
+                            ${image ? `<img src="${image}" class="card-img-top product-image" alt="Foto ${esc(product.nama_produk)}">` : '<div class="card-img-top product-image" role="img" aria-label="Belum ada foto produk"></div>'}
+                            <div class="card-body product-info">
+                                <h3 class="card-title product-title">${esc(product.nama_produk)} <small class="status">${esc(statusLabels[product.status_produk] || product.status_produk)}</small></h3>
+                                <p class="card-text product-description">${esc(product.deskripsi_produk)}</p>
+                                <a class="seller" href="profileorang.html?id=${encodeURIComponent(product.seller_id)}">
+                                    <span class="seller-icon" aria-hidden="true">●</span>
+                                    <span><span class="seller-name d-block">${esc(product.nama)}</span><span class="seller-faculty d-block">${esc(product.fakultas || "")}${product.prodi ? ` - ${esc(product.prodi)}` : ""}</span></span>
+                                </a>
+                                <a href="produkorang.html?id=${encodeURIComponent(product.id)}" class="btn btn-primary contact-button">Detail Produk</a>
+                                ${whatsapp ? `<a href="https://wa.me/${encodeURIComponent(whatsapp)}" target="_blank" rel="noopener" class="btn btn-primary contact-button">Hubungi Penjual</a>` : ""}
+                            </div>`;
+                        productContainer.appendChild(card);
+                    });
                 }
-            });
-            productContainer.appendChild(card);
 
-        });
-        function contactSeller(event) {
-            event.preventDefault();
-            alert("Informasi kontak penjual belum tersedia.");
+                if (mode === "stores" || (mode === "all" && query.trim())) {
+                    const endpoint = `danusu_php_backend/api-users.php${query ? `?q=${encodeURIComponent(query)}` : ""}`;
+                    const response = await fetch(endpoint, { credentials: "same-origin" });
+                    if (!response.ok) throw new Error("Akun tidak dapat dimuat.");
+                    const data = await response.json();
+                    const users = data.users || [];
+                    accountResults.hidden = false;
+                    accountResultsHeading.hidden = false;
+                    accountResults.innerHTML = users.length ? "" : '<p class="col-12">Tidak ada akun yang cocok dengan pencarian.</p>';
+                    users.forEach((user) => {
+                        const card = document.createElement("article");
+                        card.className = "card h-100 product-card";
+                        card.innerHTML = `<div class="card-body product-info"><h3 class="card-title product-title">${esc(user.nama)}</h3><p class="card-text product-description">NIM ${esc(user.nim || "-")}<br>${esc(user.fakultas || "")}${user.prodi ? ` - ${esc(user.prodi)}` : ""}</p><a href="profileorang.html?id=${encodeURIComponent(user.id)}" class="btn btn-primary contact-button">Lihat Profil</a></div>`;
+                        accountResults.appendChild(card);
+                    });
+                }
+
+                if (searchStatus) {
+                    searchStatus.hidden = !query;
+                    searchStatus.textContent = query ? "Hasil pencarian dari database." : "";
+                }
+            } catch (error) {
+                productContainer.hidden = false;
+                productContainer.innerHTML = '<p class="col-12">Data tidak dapat dimuat. Periksa koneksi server.</p>';
+                if (searchStatus) {
+                    searchStatus.hidden = false;
+                    searchStatus.textContent = "Pencarian gagal terhubung ke server.";
+                }
+            }
         }
+
+        loadProducts();
     </script>
 </body>
 </html>
