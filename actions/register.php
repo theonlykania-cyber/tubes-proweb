@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/bootstrap.php';
+require_once __DIR__ . '/config/bootstrap.php';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') redirect('../akun.html');
 $required=['nama','email','password','konfirmasi_password','whatsapp','nim','fakultas','prodi','alamat'];
 foreach($required as $k) if(trim($_POST[$k] ?? '')==='') exit("Kolom $k wajib diisi.");
