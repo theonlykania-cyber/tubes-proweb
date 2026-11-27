@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tambahkan Produk - DanusuProject</title>
   
-  <!-- Import Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* Reset & Variabel Warna */
+ 
     :root {
       --bg-page: #FFFFFF;
       --bg-card: #FFF8C2;
@@ -40,7 +39,7 @@
       justify-content: space-between;
     }
 
-    /* Area Utama Tengah */
+ 
     .main-container {
       flex: 1;
       display: flex;
@@ -49,7 +48,7 @@
       padding: 50px 20px;
     }
 
-    /* Kartu Form Tambahkan Produk */
+
     .product-card {
       background-color: var(--bg-card);
       width: 100%;
@@ -59,7 +58,7 @@
       position: relative;
     }
 
-    /* Tombol Kembali (Panah Kiri) */
+  
     .back-btn {
       position: absolute;
       top: 32px;
@@ -86,7 +85,7 @@
       fill: var(--bg-card);
     }
 
-    /* Header Judul */
+  
     .product-header {
       text-align: center;
       margin-bottom: 30px;
@@ -110,7 +109,6 @@
       margin-top: 4px;
     }
 
-    /* Form Input */
     .product-form {
       max-width: 540px;
       margin: 0 auto;
@@ -147,7 +145,6 @@
       box-shadow: 0 0 0 2px var(--green-primary);
     }
 
-    /* Area Upload Gambar Produk */
     .file-upload-box {
       display: flex;
       align-items: center;
@@ -174,7 +171,6 @@
       display: none;
     }
 
-    /* Status Produk (Toggle Switch Style) */
     .status-list {
       display: flex;
       flex-direction: column;
@@ -218,7 +214,6 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
-    /* Efek aktif saat status dipilih */
     .status-item input[type="radio"]:checked + .toggle-pill {
       background-color: var(--green-primary);
     }
@@ -232,7 +227,6 @@
       color: var(--text-dark);
     }
 
-    /* Checkbox Syarat & Ketentuan */
     .terms-group {
       display: flex;
       align-items: center;
@@ -255,8 +249,7 @@
       cursor: pointer;
       line-height: 1.3;
     }
-
-    /* Tombol Submit */
+    
     .form-actions {
       text-align: center;
     }
@@ -282,7 +275,6 @@
       transform: scale(0.98);
     }
 
-    /* Bagian Footer */
     .footer {
       background-color: var(--bg-footer);
       border-top-left-radius: 42px;
@@ -333,7 +325,6 @@
       text-decoration: underline;
     }
 
-    /* Responsif untuk Layar HP / Tablet */
     @media (max-width: 768px) {
       .product-card {
         padding: 70px 28px 40px;
@@ -367,29 +358,70 @@
         gap: 16px;
       }
     }
+
+    .footer {
+      background-color: #7FA38E;
+      color: #FFFFFF;
+      padding: 32px max(16px, calc((100% - 900px) / 2)) 40px;
+      border-radius: 36px 36px 0 0;
+    }
+
+    .footer h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      margin-bottom: 16px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding-left: 24px;
+    }
+
+    .footer-content p {
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      color: #FFF6C3;
+    }
+
+    @media (max-width: 768px) {
+      .footer h2 { font-size: 1.5rem; }
+      .footer-content { padding-left: 0; }
+      .footer-content p { font-size: 0.72rem; }
+    }
   </style>
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer></script>
 </head>
 <body>
 
-  <!-- Konten Utama -->
+<header class="site-navbar">
+  <a href="index.html" class="site-brand">DanusuProject</a>
+  <nav class="site-nav" aria-label="Navigasi utama"><a href="aboutus.html">ABOUT US</a><a href="index.html">HOME</a></nav>
+  <form class="site-search" role="search" action="index.html" method="get">
+    <select name="type" aria-label="Kategori pencarian"><option value="all">Semua</option><option value="products">Produk</option><option value="stores">Toko/Akun</option></select>
+    <input id="siteSearch" type="search" name="q" placeholder="Cari produk atau toko..." autocomplete="off">
+    <button type="submit" aria-label="Cari"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  </form>
+  <a href="profilesaya.html" class="site-profile" aria-label="Akun Anda"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></svg></a>
+  <a href="login.html" class="site-login">LOGIN</a>
+</header>
+
   <main class="main-container">
     <div class="product-card">
       
-      <!-- Tombol Kembali -->
       <a href="#" class="back-btn" aria-label="Kembali">
         <svg viewBox="0 0 24 24">
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
       </a>
-
-      <!-- Judul -->
+      
       <div class="product-header">
         <h1>Tambahkan Produk</h1>
         <p>DanusuProject</p>
       </div>
 
-      <!-- Form Tambah Produk -->
-      <form class="product-form" action="#" method="POST" enctype="multipart/form-data">
+      <form class="product-form" action="danusu_php_backend/actions/product-create.php" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nama_produk">Nama Produk Barang/Jasa</label>
           <input type="text" id="nama_produk" name="nama_produk" required>
@@ -408,7 +440,6 @@
           </label>
         </div>
 
-        <!-- Status Produk (Radio Button dengan tampilan Toggle Switch) -->
         <div class="form-group">
           <label>Status Produk</label>
           <div class="status-list">
@@ -434,7 +465,8 @@
 
         <div class="form-group">
           <label for="whatsapp">Nomor Whatsapp</label>
-          <input type="tel" id="whatsapp" name="whatsapp" required>
+          <input type="tel" id="whatsapp" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="0812... atau 62812..." required>
+          <small>Nomor disimpan dalam format internasional, contoh 0812... menjadi 62812...</small>
         </div>
 
         <div class="terms-group">
@@ -450,34 +482,17 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <h2 class="footer-brand">DanusuProject</h2>
-      
-      <div class="footer-columns">
-        <ul class="footer-col">
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-        </ul>
-        
-        <ul class="footer-col">
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-        </ul>
-        
-        <ul class="footer-col">
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-          <li><a href="#">Isi Footer</a></li>
-        </ul>
+  <footer class="footer" id="about">
+    <h2>DanusuProject</h2>
+    <div class="footer-content">
+      <div>
+        <p>UNIVERSITAS SUMATERA UTARA</p>
+        <p>Jl. Dr. T. Mansur No. 9, Medan, Sumatera Utara</p>
+        <p>copyright © 2026 DanusuProject. All rights reserved.</p>
       </div>
     </div>
   </footer>
-
-  <!-- Script untuk menampilkan nama file gambar yang diunggah -->
+  
   <script>
     function updateFileName(input) {
       const fileNameDisplay = document.getElementById('file-name');
@@ -489,5 +504,39 @@
     }
   </script>
 
+<script>
+  const productForm = document.querySelector('.product-form');
+  const whatsappInput = productForm?.elements.whatsapp;
+  whatsappInput?.addEventListener('input', () => whatsappInput.setCustomValidity(''));
+  productForm?.addEventListener('submit', (event) => {
+    const input = event.currentTarget.elements.whatsapp;
+    let number = input.value.replace(/\D/g, '');
+    if (number.startsWith('0')) number = `62${number.slice(1)}`;
+    else if (number.startsWith('8')) number = `62${number}`;
+    if (number.length < 8 || number.length > 15) {
+      event.preventDefault();
+      input.setCustomValidity('Masukkan nomor WhatsApp yang valid.');
+      input.reportValidity();
+      return;
+    }
+    input.setCustomValidity('');
+    input.value = number;
+  });
+</script>
+
+<script>
+  document.addEventListener('click', (event) => {
+    const backLink = event.target.closest('a[aria-label="Kembali"]');
+    if (!backLink) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = 'index.html';
+    }
+  }, true);
+</script>
 </body>
 </html>

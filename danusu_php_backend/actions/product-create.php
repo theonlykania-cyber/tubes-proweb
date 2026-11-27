@@ -1,1 +1,30 @@
-<?php require '../config/bootstrap.php';auth();verify_token();if(me()['role']!=='penjual'){flash('Hanya penjual yang dapat memasukkan produk','error');header('Location: ../index.php');exit;}try{$n=trim($_POST['nama_produk']??'');$d=trim($_POST['deskripsi_produk']??'');$st=$_POST['status_produk']??'';if(!$n||!$d||!in_array($st,['ready_stock','pre_order','sold_out'],true))throw new Exception('Data produk tidak valid');$img=upload_img('gambar_produk','products');$s=$pdo->prepare('INSERT INTO produk(user_id,nama_produk,deskripsi_produk,gambar_produk,status_produk,whatsapp) VALUES(?,?,?,?,?,?)');$s->execute([me()['id'],$n,$d,$img,$st,trim($_POST['whatsapp']??'')]);flash('Produk berhasil ditambahkan');}catch(Throwable $e){flash($e instanceof PDOException?'Pastikan database.sql sudah dijalankan.':$e->getMessage(),'error');}header('Location: ../my-products.php');exit;
+<?php
+require '../config/bootstrap.php';
+if (!me()) redirect('../../login.html?next=tambahkan.html');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') redirect('../tambahkan.html');
+verify_token();
+if (me()['role'] !== 'penjual') {
+	flash('Hanya penjual yang dapat memasukkan produk', 'error');
+	redirect('../index.html');
+}
+
+try {
+	$name = trim($_POST['nama_produk'] ?? '');
+	$description = trim($_POST['deskripsi_produk'] ?? '');
+	$productStatus = $_POST['status_produk'] ?? '';
+	$whatsapp = normalize_whatsapp($_POST['whatsapp'] ?? '');
+	if ($name === '' || $description === '' || !in_array($productStatus, ['ready_stock', 'pre_order', 'sold_out'], true)) {
+		throw new Exception('Data produk tidak valid.');
+	}
+	if (strlen($whatsapp) < 8 || strlen($whatsapp) > 15) {
+		throw new Exception('Nomor WhatsApp tidak valid.');
+	}
+
+	$image = upload_img('gambar_produk', 'products');
+	$stmt = $pdo->prepare('INSERT INTO produk(user_id,nama_produk,deskripsi_produk,gambar_produk,status_produk,whatsapp) VALUES(?,?,?,?,?,?)');
+	$stmt->execute([me()['id'], $name, $description, $image, $productStatus, $whatsapp]);
+	flash('Produk berhasil ditambahkan.');
+} catch (Throwable $error) {
+	flash($error instanceof PDOException ? 'Pastikan database.sql sudah dijalankan.' : $error->getMessage(), 'error');
+}
+redirect('../my-products.php');
